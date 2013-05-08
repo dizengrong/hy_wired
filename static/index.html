@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- DW6 -->
+<head>
+<!-- Copyright 2005 Macromedia, Inc. All rights reserved. -->
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>衡阳有限设备验收系统</title>
+<link rel="stylesheet" href="/static/css/emx_nav_left.css" type="text/css" />
+<link rel="stylesheet" type="text/css" href="/static/css/base.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/changelists.css" />
+</head>
+
+<script type="text/javascript">
+<!--
+var time = 3000;
+var numofitems = 1;
+
+//menu constructor
+function menu(allitems,thisitem,startstate){ 
+  callname= "gl"+thisitem;
+  divname="subglobal"+thisitem;  
+  this.numberofmenuitems = allitems;
+  this.caller = document.getElementById(callname);
+  this.thediv = document.getElementById(divname);
+  this.thediv.style.visibility = startstate;
+}
+
+//menu methods
+function ehandler(event,theobj){
+  for (var i=1; i<= theobj.numberofmenuitems; i++){
+    var shutdiv =eval( "menuitem"+i+".thediv");
+    shutdiv.style.visibility="hidden";
+  }
+  theobj.thediv.style.visibility="visible";
+}
+                
+function closesubnav(event){
+  if ((event.clientY <48)||(event.clientY > 107)){
+    for (var i=1; i<= numofitems; i++){
+      var shutdiv =eval('menuitem'+i+'.thediv');
+      shutdiv.style.visibility='hidden';
+    }
+  }
+}
+// -->
+</script>
+
+<body class="change-list" onmousemove="closesubnav(event);">
+    <div id="subglobal1" class="subglobalNav"> 
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="/main?action=check_onu_valid">验收onu</a> | 
+        <a href="/main?action=check_eoc_valid">验收eoc</a> 
+    </div>
+    <div class="skipLinks">skip to: <a href="#content">page content</a> | <a href="#pageNav">links on this page</a> | <a href="#globalNav">site navigation</a> | <a href="#siteInfo">footer (site information)</a> </div>
+    <div id="masthead">
+        <h1 id="siteName">衡阳有限设备验收系统</h1>
+        <div id="utility", style="color: red;"> 
+            {{user}} 您好！
+        </div>
+        <div id="globalNav"> <img alt="" src="/static/css/gblnav_left.gif" height="32" width="4" id="gnl" /> <img alt="" src="/static/css/glbnav_right.gif" height="32" width="4" id="gnr" />
+        <div id="globalLink"> 
+            <a href="/main?action=msg" class="glink" >我的消息({{msg_len}})</a>
+            <a href="/main?action=req_valid" class="glink" >提交验收请求</a>
+            <a href="#" id="gl1" class="glink" onmouseover="ehandler(event,menuitem1);">待验收的请求</a>
+            <a href="/main?action=query" class="glink">查询</a> 
+        </div>
+    </div>
+
+    <div id="pagecell1">
+        {% csrf_token %}
+            {% if action == 'msg' %}
+                {% include "page_msg.html" %}
+            {% endif %}
+
+            {% if action == 'req_valid' %}
+
+                {% include "page_req_valid.html" %}
+            {% endif %}
+
+            {% if action == 'check_onu_valid' or action == 'check_eoc_valid' %}
+                {% include "page_check_valid.html" %}
+            {% endif %}
+
+            {% if action == 'query' %}
+                {% include "page_query.html" %}
+            {% endif %}
+        
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var menuitem1 = new menu(1,1,"hidden");
+
+</script>
+
+
+</body>
+</html>
+
+
